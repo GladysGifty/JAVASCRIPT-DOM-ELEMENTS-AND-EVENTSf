@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coin Flip</title>
+    <style>
+        body {
+            background-color: #e6e6fa;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background-color: white;
+            width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+        h2 { color: #663399; }
+        img {
+            width: 120px;
+            height: 120px;
+            margin: 15px;
+            object-fit: contain;
+        }
+        button {
+            background-color: #663399;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #45216b; }
+        .result {
+            background-color: #f0e6ff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            color: #4b0082;
+            line-height: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Heads or Tails?</h2>
+
+        <img src="heads.jpg" id="coin">
+
+        <br>
+
+        <button id="flip">Flip!</button>
+
+        <div class="result">
+            Heads Total: <span id="num_heads">0</span><br>
+            Tails Total: <span id="num_tails">0</span>
+        </div>
+    </div>
+
+    <script>
+        var heads = 0;
+        var tails = 0;
+
+        document.getElementById("flip").addEventListener("click", flipFunction);
+
+        function flipFunction() {
+            var number = Math.floor(Math.random() * 2);
+
+            if (number == 0) {
+                document.getElementById("coin").src = "heads.jpg";
+                heads++;
+            }
+            else {
+                document.getElementById("coin").src = "tails.jpg";
+                tails++;
+            }
+
+            document.getElementById("num_heads").innerHTML = heads;
+            document.getElementById("num_tails").innerHTML = tails;
+        }
+    </script>
+</body>
+</html>

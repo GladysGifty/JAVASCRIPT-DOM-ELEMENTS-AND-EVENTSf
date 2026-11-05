@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Cake Order Form</title>
+    <style>
+        body {
+            background-color: #e6e6fa;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background-color: white;
+            width: 420px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+        h2 { color: #663399; }
+        input[type="text"] {
+            padding: 8px;
+            width: 80px;
+            margin: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #663399;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #45216b; }
+        .result {
+            background-color: #f0e6ff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            color: #4b0082;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Birthday Cake Order Form</h2>
+
+        1/2 kg Cakes:
+        <input type="text" id="small" value="0"><br>
+
+        1 kg Cakes:
+        <input type="text" id="medium" value="0"><br>
+
+        2 kg Cakes:
+        <input type="text" id="large" value="0"><br>
+
+        <p>Choose Tip:</p>
+
+        <label>
+            <input type="radio" value="10" name="tip"> 10%
+        </label>
+
+        <label>
+            <input type="radio" value="15" name="tip" checked> 15%
+        </label>
+
+        <label>
+            <input type="radio" value="20" name="tip"> 20%
+        </label>
+
+        <br><br>
+
+        <button id="submit">Calculate Order</button>
+
+        <div class="result">
+            Cost of Order: Rs. <span id="price">0.00</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("submit").addEventListener("click", calculate);
+
+        function calculate() {
+            var small = parseInt(document.getElementById("small").value);
+            var medium = parseInt(document.getElementById("medium").value);
+            var large = parseInt(document.getElementById("large").value);
+
+            var total = (small * 100) + (medium * 200) + (large * 400);
+
+            var tax = total * 0.09;
+
+            var tip = parseInt(document.querySelector('input[name="tip"]:checked').value);
+
+            var tipAmount = (total + tax) * tip / 100;
+
+            var price = total + tax + tipAmount;
+
+            document.getElementById("price").innerHTML = price.toFixed(2);
+        }
+    </script>
+</body>
+</html>

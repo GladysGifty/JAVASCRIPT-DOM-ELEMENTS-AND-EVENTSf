@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Converter</title>
+    <style>
+        body {
+            background-color: #e6e6fa;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background-color: white;
+            width: 450px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+        h2 { color: #663399; }
+        input, select {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #663399;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #45216b; }
+        #answer {
+            display: block;
+            background-color: #f0e6ff;
+            color: #4b0082;
+            font-weight: bold;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Currency Converter</h2>
+
+        <input type="text" id="data" placeholder="Enter amount">
+
+        <select id="from">
+            <option value="INR">Indian Rupee</option>
+            <option value="USD">US Dollar</option>
+        </select>
+
+        <p>Convert To</p>
+
+        <select id="to">
+            <option value="USD">US Dollar</option>
+            <option value="INR">Indian Rupee</option>
+        </select>
+
+        <br><br>
+
+        <button onclick="convert()">Calculate</button>
+
+        <span id="answer">Answer will appear here</span>
+    </div>
+
+    <script>
+        function convert() {
+            var amount = parseFloat(document.getElementById("data").value);
+
+            var from = document.getElementById("from").value;
+            var to = document.getElementById("to").value;
+
+            var result;
+
+            if (from == "INR" && to == "USD") {
+                result = amount * 0.015;
+            }
+            else if (from == "USD" && to == "INR") {
+                result = amount * 67.12;
+            }
+            else {
+                result = amount;
+            }
+
+            document.getElementById("answer").innerHTML =
+                "Converted Amount: " + result.toFixed(2) + " " + to;
+        }
+    </script>
+</body>
+</html>

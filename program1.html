@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shortest and Longest Word</title>
+
+    <style>
+        body {
+            background-color: #e6e6fa;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background-color: white;
+            width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            color: #663399;
+        }
+
+        button {
+            background-color: #663399;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45216b;
+        }
+
+        #result {
+            background-color: #f0e6ff;
+            padding: 15px;
+            border-radius: 8px;
+            color: #4b0082;
+            font-weight: bold;
+            line-height: 2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Shortest and Longest Word</h2>
+
+        <button onclick="findWords('Web Development Tutorial')">
+            Find Words
+        </button>
+
+        <p id="result">Result will appear here</p>
+
+    </div>
+
+    <script>
+        function findWords(str) {
+
+            var words = str.split(" ");
+
+            var shortest = words[0];
+            var longest = words[0];
+
+            for (var i = 0; i < words.length; i++) {
+
+                if (words[i].length < shortest.length) {
+                    shortest = words[i];
+                }
+
+                if (words[i].length > longest.length) {
+                    longest = words[i];
+                }
+            }
+
+            document.getElementById("result").innerHTML =
+                "Shortest: " + shortest + "<br>" +
+                "Longest: " + longest;
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Farm</title>
+    <style>
+        body {
+            background-color: #e6e6fa;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background-color: white;
+            width: 450px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+        h2 { color: #663399; }
+        input {
+            padding: 10px;
+            width: 70px;
+            margin: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #663399;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #45216b; }
+        #garden {
+            background-color: #f0e6ff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        #garden img {
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fruit Farm</h2>
+
+        Rows:
+        <input type="text" id="rows" placeholder="Rows">
+
+        Columns:
+        <input type="text" id="columns" placeholder="Columns">
+
+        <br><br>
+
+        <button onclick="grow()">Plant Garden</button>
+
+        <div id="garden"></div>
+    </div>
+
+    <script>
+        function grow() {
+            var rows = parseInt(document.getElementById("rows").value);
+            var columns = parseInt(document.getElementById("columns").value);
+
+            var arr = ["apple.jpg", "orange.jpg"];
+
+            document.getElementById("garden").innerHTML = "";
+
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < columns; j++) {
+                    var number = Math.floor(Math.random() * 2);
+
+                    document.getElementById("garden").innerHTML +=
+                        "<img src='" + arr[number] + "'>";
+                }
+                document.getElementById("garden").innerHTML += "<br>";
+            }
+        }
+    </script>
+</body>
+</html>
