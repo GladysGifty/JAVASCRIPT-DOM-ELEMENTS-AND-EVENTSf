@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript - DOM Elements and Events</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #eee8ff;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+h1 {
+    text-align: center;
+    color: #653b9b;
+}
+.main-title {
+    background: #7545a8;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+.card {
+    background: white;
+    padding: 22px;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #ccc;
+}
+h2 {
+    color: #7545a8;
+    border-bottom: 2px solid #d8c5f0;
+    padding-bottom: 10px;
+}
+input, select, textarea {
+    padding: 10px;
+    margin: 8px 5px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 15px;
+}
+button {
+    background: #7545a8;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    margin: 10px 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+}
+button:hover {
+    background: #512d7c;
+}
+.result {
+    color: #512d7c;
+    font-weight: bold;
+    margin-top: 12px;
+}
+#garden {
+    display: grid;
+    gap: 5px;
+    margin-top: 20px;
+}
+#garden img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+#coin {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    display: block;
+    margin: 15px 0;
+}
+footer {
+    background: #7545a8;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header class="main-title">
+    <h1>JavaScript – DOM Elements and Events</h1>
+    <p style="text-align:center;">Web Technology Lab | Experiment 5</p>
+</header>
+
+<!-- PROGRAM 1 -->
+<section class="card">
+<h2>Program 1: Shortest and Longest Word</h2>
+<p>Enter a sentence to find the shortest and longest words.</p>
+
+<textarea id="sentence" rows="3" style="width:90%;" placeholder="Enter a sentence"></textarea>
+<br>
+<button onclick="findWords()">Find Words</button>
+
+<p class="result" id="wordResult"></p>
+</section>
+
+<!-- PROGRAM 2 -->
+<section class="card">
+<h2>Program 2: BMI Calculator</h2>
+
+<p>Weight (in kilograms):
+<input type="number" id="weight" placeholder="Enter weight">
+</p>
+
+<p>Height (in meters):
+<input type="number" id="height" placeholder="Enter height" step="0.01">
+</p>
+
+<button onclick="calculate()">Get BMI!</button>
+
+<p>Your BMI is <span class="result" id="score"></span></p>
+<p>Your body type is <span class="result" id="type"></span></p>
+</section>
+
+<!-- PROGRAM 3 -->
+<section class="card">
+<h2>Program 3: Fruit Farm</h2>
+
+<p>Rows:
+<input type="number" id="rows" placeholder="Enter rows" min="1" max="10">
+</p>
+
+<p>Columns:
+<input type="number" id="columns" placeholder="Enter columns" min="1" max="10">
+</p>
+
+<button onclick="grow()">Plant Garden</button>
+
+<div id="garden"></div>
+</section>
+
+<!-- PROGRAM 4 -->
+<section class="card">
+<h2>Program 4: Currency Converter</h2>
+
+<p>
+Convert
+<input type="number" id="data" placeholder="Enter amount">
+<select id="from">
+    <option value="INR">Indian Rupee</option>
+    <option value="USD">US Dollar</option>
+</select>
+to
+<select id="to">
+    <option value="USD">US Dollar</option>
+    <option value="INR">Indian Rupee</option>
+</select>
+</p>
+
+<button onclick="convert()">Calculate</button>
+
+<p class="result" id="answer"></p>
+</section>
+
+<!-- PROGRAM 5 -->
+<section class="card">
+<h2>Program 5: Coin Flip</h2>
+
+<h3>Heads or Tails?</h3>
+
+<img src="heads.jpg" id="coin" alt="Coin">
+
+<button id="flip">Flip!</button>
+
+<p>Heads Total: <span class="result" id="num_heads">0</span></p>
+<p>Tails Total: <span class="result" id="num_tails">0</span></p>
+</section>
+
+<!-- PROGRAM 6 -->
+<section class="card">
+<h2>Program 6: Birthday Cake Order Form</h2>
+
+<p>Number of 1/2 kg Cakes:
+<input type="number" id="small" value="0" min="0">
+</p>
+
+<p>Number of 1 kg Cakes:
+<input type="number" id="medium" value="0" min="0">
+</p>
+
+<p>Number of 2 kg Cakes:
+<input type="number" id="large" value="0" min="0">
+</p>
+
+<p>Tip:</p>
+
+<label>
+<input type="radio" value="10" name="tip">10%
+</label>
+
+<label>
+<input type="radio" value="15" name="tip" checked>15%
+</label>
+
+<label>
+<input type="radio" value="20" name="tip">20%
+</label>
+
+<br>
+
+<button id="submit" type="button">Calculate Order</button>
+
+<p>Cost of Order: <span class="result" id="price"></span></p>
+</section>
+
+<footer>
+JavaScript – DOM Elements and Events | Web Technology Lab
+</footer>
+
+</div>
+
+<script>
+
+// PROGRAM 1: Shortest and Longest Word
+function findWords() {
+    var sentence = document.getElementById("sentence").value.trim();
+
+    if (sentence === "") {
+        document.getElementById("wordResult").innerHTML = "Please enter a sentence.";
+        return;
+    }
+
+    var words = sentence.split(/\s+/);
+    var shortest = words[0];
+    var longest = words[0];
+
+    for (var i = 0; i < words.length; i++) {
+        if (words[i].length < shortest.length) {
+            shortest = words[i];
+        }
+        if (words[i].length > longest.length) {
+            longest = words[i];
+        }
+    }
+
+    document.getElementById("wordResult").innerHTML =
+        "Shortest: " + shortest + "<br>Longest: " + longest;
+}
+
+// PROGRAM 2: BMI Calculator
+function calculate() {
+    var weight = parseFloat(document.getElementById("weight").value);
+    var height = parseFloat(document.getElementById("height").value);
+
+    if (!weight || !height || weight <= 0 || height <= 0) {
+        alert("Please enter valid weight and height.");
+        return;
+    }
+
+    var bmi = weight / (height * height);
+    var bodyType;
+
+    if (bmi < 18) {
+        bodyType = "Underweight";
+    } else if (bmi <= 25) {
+        bodyType = "Normal";
+    } else if (bmi <= 30) {
+        bodyType = "Overweight";
+    } else {
+        bodyType = "Obese";
+    }
+
+    document.getElementById("score").innerHTML = bmi.toFixed(2);
+    document.getElementById("type").innerHTML = bodyType;
+}
+
+// PROGRAM 3: Fruit Farm
+function grow() {
+    var rows = parseInt(document.getElementById("rows").value);
+    var columns = parseInt(document.getElementById("columns").value);
+    var garden = document.getElementById("garden");
+
+    garden.innerHTML = "";
+
+    if (!Number.isInteger(rows) || !Number.isInteger(columns) ||
+        rows < 1 || columns < 1 || rows > 10 || columns > 10) {
+        garden.innerHTML = "Enter rows and columns between 1 and 10.";
+        return;
+    }
+
+    garden.style.gridTemplateColumns = "repeat(" + columns + ", 75px)";
+
+    var fruits = ["apple.jpg", "orange.jpg"];
+
+    for (var i = 0; i < rows * columns; i++) {
+        var number = Math.floor(Math.random() * 2);
+        garden.innerHTML +=
+            "<img src='" + fruits[number] + "' alt='Fruit'>";
+    }
+}
+
+// PROGRAM 4: Currency Converter
+function convert() {
+    var amount = parseFloat(document.getElementById("data").value);
+    var from = document.getElementById("from").value;
+    var to = document.getElementById("to").value;
+    var result;
+
+    if (isNaN(amount) || amount < 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+    if (from === "INR" && to === "USD") {
+        result = amount * 0.015;
+    } else if (from === "USD" && to === "INR") {
+        result = amount * 67.12;
+    } else {
+        result = amount;
+    }
+
+    document.getElementById("answer").innerHTML =
+        "Result: " + result.toFixed(2) + " " + to;
+}
+
+// PROGRAM 5: Coin Flip
+var heads = 0;
+var tails = 0;
+
+document.getElementById("flip").addEventListener("click", flipFunction);
+
+function flipFunction() {
+    var number = Math.floor(Math.random() * 2);
+
+    if (number === 0) {
+        document.getElementById("coin").src = "heads.jpg";
+        heads++;
+    } else {
+        document.getElementById("coin").src = "tails.jpg";
+        tails++;
+    }
+
+    document.getElementById("num_heads").innerHTML = heads;
+    document.getElementById("num_tails").innerHTML = tails;
+}
+
+// PROGRAM 6: Birthday Cake Order Form
+document.getElementById("submit").addEventListener("click", calculateOrder);
+
+function calculateOrder() {
+    var small = parseInt(document.getElementById("small").value) || 0;
+    var medium = parseInt(document.getElementById("medium").value) || 0;
+    var large = parseInt(document.getElementById("large").value) || 0;
+
+    if (small < 0 || medium < 0 || large < 0 ||
+        !Number.isInteger(small) || !Number.isInteger(medium) ||
+        !Number.isInteger(large)) {
+        alert("Enter valid cake quantities.");
+        return;
+    }
+
+    var subtotal = (small * 100) + (medium * 200) + (large * 400);
+    var tax = subtotal * 0.09;
+    var totalAfterTax = subtotal + tax;
+
+    var tip = parseFloat(
+        document.querySelector('input[name="tip"]:checked').value
+    );
+
+    var tipAmount = totalAfterTax * tip / 100;
+    var total = totalAfterTax + tipAmount;
+
+    document.getElementById("price").innerHTML =
+        "Rs. " + total.toFixed(2);
+}
+
+</script>
+
+</body>
+</html>
